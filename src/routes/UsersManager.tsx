@@ -528,6 +528,7 @@ const AddUserFlyout = ({
     username: "",
     password: "",
     is_admin: false,
+    is_user: true,
   });
   const closeAddUserFlyout = () => setAddUserFlyoutVisible(false);
   let flyout;
@@ -604,6 +605,18 @@ const AddUserFlyout = ({
                   }}
                 />
               </EuiFormRow>
+              <EuiFormRow label="Apakah User?" fullWidth>
+                <EuiSwitch
+                  label={AddUserForm.is_admin ? "User" : "Bukan User"}
+                  checked={AddUserForm.is_admin}
+                  onChange={(e) => {
+                    setAddUserForm({
+                      ...AddUserForm,
+                      is_user: e.target.checked,
+                    });
+                  }}
+                />
+              </EuiFormRow>
             </EuiFlexGroup>
           </EuiFlyoutBody>
           <EuiFlyoutFooter>
@@ -640,12 +653,14 @@ const EditUserFlyout = ({
     username: userInfo?.username as string,
     password: "",
     is_admin: userInfo?.is_admin as boolean,
+    is_user: userInfo?.is_user as boolean,
   });
   useEffect(() => {
     setUpdateUserForm({
       username: userInfo?.username as string,
       password: "",
       is_admin: userInfo?.is_admin as boolean,
+      is_user: userInfo?.is_user as boolean,
     });
   }, [userInfo]);
 

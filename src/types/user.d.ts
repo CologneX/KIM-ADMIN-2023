@@ -13,6 +13,7 @@ export type Users = {
     id: string;
     username: string;
     is_admin: boolean;
+    is_user: boolean;
     updated_on: Date;
 }
 
@@ -20,10 +21,12 @@ export type CreateUser = {
     username: string;
     password: string;
     is_admin: boolean
+    is_user: boolean
 }
 
 export type UpdateUser = {
     username: string;
     password?: string;
     is_admin: boolean
+    is_user: boolean
 }
