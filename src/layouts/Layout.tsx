@@ -248,9 +248,9 @@ const SideNav = (): React.ReactElement => {
 const UserMenu = () => {
   const user = JSON.parse(localStorage.getItem("user")) as User;
 
-  // if (!user) {
-  //   return null;
-  // }
+  if (!user) {
+    return null;
+  }
 
   const { username, is_admin, is_user } = user;
   return (

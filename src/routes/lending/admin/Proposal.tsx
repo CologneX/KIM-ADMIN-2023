@@ -573,6 +573,7 @@ const AiModal = ({
         <EuiModal
           onClose={() => {
             setAiModalVisibility(false);
+            setCreditScore({} as CreditScore);
           }}
         >
           <EuiModalHeader>

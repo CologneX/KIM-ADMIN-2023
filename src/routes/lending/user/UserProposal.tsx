@@ -65,13 +65,14 @@ const handleCreateLendingProposal = async (data: ProposalForm) => {
     body: formKTP,
   });
   const linkKTP = await res2.json().then((res) => res.filename);
+
   const req = async () => {
     const res = await fetch("/api/v1/lending/user/proposal", {
       method: "POST",
       body: JSON.stringify({
         ...data,
-        kk_url: linkKK,
-        ktp_url: linkKTP,
+        kk_url: linkKK.toString(),
+        ktp_url: linkKTP.toString(),
       }),
     });
     return res;
@@ -522,7 +523,7 @@ const ProposalFormCard = ({
                   <EuiFilePicker
                     initialPromptText="Pilih File"
                     onChange={(files) => {
-                      setForm({ ...form, kk_url: files[0] });
+                      setForm({ ...form, kk_url: files[0].name });
                     }}
                   />
                 </EuiFormRow>
@@ -532,7 +533,7 @@ const ProposalFormCard = ({
                   <EuiFilePicker
                     initialPromptText="Pilih File"
                     onChange={(files) => {
-                      setForm({ ...form, ktp_url: files[0] });
+                      setForm({ ...form, ktp_url: files[0].name });
                     }}
                   />
                 </EuiFormRow>

@@ -91,7 +91,7 @@ const handleGetSME = async () => {
     throw error;
   }
 };
-const handleTotalUser = async () => {
+const handleGetTopProduct = async () => {
   const req = async () => {
     const res = await fetch("/api/v1/analytics/top-product");
     return res;
@@ -132,8 +132,7 @@ export default () => {
       handleGetSME().then((res) => {
         setTotalSME(res.total);
       });
-      handleTotalUser().then((res) => {
-        console.log(res);
+      handleGetTopProduct().then((res) => {
         setTopProducts(res.total);
       });
     } catch (error) {
@@ -144,40 +143,42 @@ export default () => {
   // let chart = (_, { title, description }) => {
   //   return (
   //     <Chart title={title} description={description}>
-  //       <Settings debug={showDebug} baseTheme={useBaseTheme()} />
+  //       <Settings />
   //       <Partition
   //         id="spec_1"
-  //         data={mocks.pie}
+  //         data={setTopProducts}
   //         valueAccessor={(d: Datum) => d.exportVal as number}
   //         valueFormatter={(d: number) =>
   //           `$${defaultPartitionValueFormatter(
   //             Math.round(d / 1000000000)
   //           )}\u00A0Bn`
   //         }
-  //         layers={[
-  //           {
-  //             groupByRollup: (d: Datum) => d.sitc1,
-  //             nodeLabel: (d: Datum) => productLookup[d].name,
-  //             shape: {
-  //               fillColor: (key, sortIndex, node, tree) =>
-  //                 indexInterpolatedFillColor(interpolatorCET2s(0.8))(
-  //                   null,
-  //                   sortIndex,
-  //                   tree
-  //                 ),
-  //             },
-  //           },
-  //         ]}
+  //         // layers={[
+  //         //   {
+  //         //     groupByRollup: (d: Datum) => d.sitc1,
+  //         //     nodeLabel: (d: Datum) => productLookup[d].name,
+  //         //     shape: {
+  //         //       fillColor: (key, sortIndex, node, tree) =>
+  //         //         indexInterpolatedFillColor(interpolatorCET2s(0.8))(
+  //         //           null,
+  //         //           sortIndex,
+  //         //           tree
+  //         //         ),
+  //         //     },
+  //         //   },
+  //         // ]}
   //       />
   //     </Chart>
   //   );
   // };
+
+  const { username } = JSON.parse(localStorage.getItem("user")!);
   return (
     <>
       <EuiFlexGroup direction="column">
         <EuiFlexItem>
           <EuiTitle size="l">
-            <h1>Selamat Datang, Admin</h1>
+            <h1>Selamat Datang, {username}</h1>
           </EuiTitle>
         </EuiFlexItem>
         <EuiFlexItem>
