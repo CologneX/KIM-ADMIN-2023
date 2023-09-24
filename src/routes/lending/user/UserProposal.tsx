@@ -25,6 +25,7 @@ import refreshToken from "../../../components/refreshToken";
 import { Proposal, ProposalForm } from "../../../types/proposal";
 import { useRootGlobalToast } from "../../../layouts/Layout";
 import toRupiah from "../../../utils/toRupiah";
+import { useNavigate } from "react-router-dom";
 
 const handleGetProposal = async () => {
   const req = async () => {
@@ -178,12 +179,12 @@ export default () => {
                 >
                   Ajukan Proposal
                 </EuiButton>
-                <EuiButtonEmpty
+                <EuiButton
                   iconType={"refresh"}
                   onClick={() => setIsRefreshData(!isRefreshData)}
                 >
                   Refresh
-                </EuiButtonEmpty>
+                </EuiButton>
               </EuiFlexGroup>
             </EuiFlexItem>
           </EuiFlexGroup>
@@ -205,6 +206,7 @@ export default () => {
 };
 
 const ProposalCard = ({ proposalData }: { proposalData: Proposal[] }) => {
+  const navigate = useNavigate();
   return (
     <>
       <EuiFlexGrid columns={2}>
@@ -218,7 +220,24 @@ const ProposalCard = ({ proposalData }: { proposalData: Proposal[] }) => {
                   </EuiTitle>
                   <small>{proposal.id}</small>
                 </EuiFlexItem>
-
+                {proposal.payment_url &&
+                  proposal.payment_token &&
+                  proposal.is_paid && (
+                    <>
+                      <EuiButton
+                        size="s"
+                        onClick={() =>
+                          window.open(
+                            proposal.payment_url,
+                            "_blank",
+                            "height=800, width=500"
+                          )
+                        }
+                      >
+                        Lunaskan Pinjaman
+                      </EuiButton>
+                    </>
+                  )}
                 <EuiBadge
                   color={
                     proposal.status === "pending"

@@ -14,7 +14,11 @@ export type Proposal = {
     has_house: string,
     kk_url: string,
     ktp_url: string,
-    status: string
+    status: string,
+    payment_token?: string,
+    payment_url?: string,
+    is_paid?: boolean,
+
 }
 
 export type CreditScore = {
@@ -37,5 +41,6 @@ export type ProposalForm = {
     has_house: boolean;
     kk_url: string;
     ktp_url: string;
+
 }
-      
+
