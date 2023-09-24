@@ -30,6 +30,7 @@ import { useRootGlobalToast } from "../../../layouts/Layout";
 import CenterLoading from "../../../components/CenterLoading";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { time } from "console";
 
 const handleGetProposal = async () => {
   const req = async () => {
@@ -542,10 +543,12 @@ const AiModal = ({
   const [creditScore, setCreditScore] = useState<CreditScore>(
     {} as CreditScore
   );
-
+  const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
   const getCreditScore = async () => {
+    setIsLoadingData(true);
     try {
       const res = await handleGetCreditScore(selectedProposal?.id!);
+
       setCreditScore(res);
     } catch (error) {
       addToast({
@@ -553,6 +556,8 @@ const AiModal = ({
         color: "danger",
         iconType: "alert",
       });
+    } finally {
+      setIsLoadingData(false);
     }
   };
 
@@ -569,14 +574,27 @@ const AiModal = ({
                 Atas pertimbangan dan perhitungan saya, Kopdi AI, akan membantu
                 anda!
               </p>
-              <EuiButton fullWidth onClick={getCreditScore}>
-                {creditScore.predictions
-                  ? creditScore.predictions[0]
-                  : "Tanya AI!"}
+              <EuiButton
+                fullWidth
+                onClick={getCreditScore}
+                disabled={isLoadingData}
+                isLoading={isLoadingData}
+              >
+                Tanya AI
               </EuiButton>
             </EuiText>
           </EuiModalBody>
-          <EuiModalFooter></EuiModalFooter>
+          <EuiModalFooter>
+            <EuiFlexGroup justifyContent="center">
+              <EuiFlexItem>
+                <EuiTitle>
+                  <h1>
+                    {creditScore.predictions && creditScore.predictions[0]}
+                  </h1>
+                </EuiTitle>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+          </EuiModalFooter>
         </EuiModal>
       )}
     </>

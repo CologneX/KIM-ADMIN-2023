@@ -5,7 +5,7 @@ import {
   EuiText,
 } from "@elastic/eui";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { User } from "../types/user";
 import { useRootGlobalToast } from "./Layout";
 
@@ -29,6 +29,7 @@ export default ({ children }: { children: React.ReactNode }) => {
     case true:
       return <>{children}</>;
     case false:
+      <Navigate to="/login" state={{ from: location }} replace />;
       addToast({
         title: "Akses ditolak",
         color: "warning",

@@ -5,10 +5,10 @@ import {
   EuiText,
 } from "@elastic/eui";
 import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 export default ({ children }: { children: React.ReactNode }) => {
-  let location = useLocation();
+  let navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = React.useState<boolean | null>(null);
   React.useEffect(() => {
     localStorage.getItem("user") ? setLoggedIn(true) : setLoggedIn(false);
@@ -25,6 +25,6 @@ export default ({ children }: { children: React.ReactNode }) => {
     case true:
       return <>{children}</>;
     case false:
-      <Navigate to="/login" state={{ from: location }} replace />;
+      navigate("/login", { replace: true });
   }
 };

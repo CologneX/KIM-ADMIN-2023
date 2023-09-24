@@ -189,7 +189,7 @@ const SideNav = (): React.ReactElement => {
               title="User"
               iconType="canvasApp"
               isCollapsible={true}
-              initialIsOpen={true}
+              initialIsOpen={false}
             >
               <EuiPinnableListGroup
                 aria-label="Pesanan-Orders"

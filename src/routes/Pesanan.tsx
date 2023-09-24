@@ -712,7 +712,7 @@ const AddOrderFlyout = ({
       addToast({
         title: "Gagal",
         color: "danger",
-        text: <EuiText>GAGAL COK</EuiText>,
+        text: <EuiText></EuiText>,
       });
     }
     setIsAddingUser(false);
