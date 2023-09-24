@@ -134,6 +134,32 @@ export default () => {
     }
   }, []);
 
+  // let chart = (
+  //   <Chart size={{ height: 200 }}>
+  //     <Settings theme={euiChartTheme.theme} />
+  //     <Partition
+  //       data={[
+  //         {
+  //           category: "Name",
+  //           percent: 50,
+  //         },
+  //       ]}
+  //       valueAccessor={(d) => Number(d.percent)}
+  //       valueFormatter={() => ""} // Hide the slice value if data values are already in percentages
+  //       layers={[
+  //         {
+  //           groupByRollup: (d) => d.category,
+  //           shape: {
+  //             fillColor: (d) =>
+  //               euiChartTheme.theme.colors.vizColors[d.sortIndex],
+  //           },
+  //         },
+  //       ]}
+  //       emptySizeRatio={0.4} // To create a donut chart
+  //       clockwiseSectors={false} // For correct slice order
+  //     />
+  //   </Chart>
+  // );
   return (
     <>
       <EuiFlexGroup direction="column">

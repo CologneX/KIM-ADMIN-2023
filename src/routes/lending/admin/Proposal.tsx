@@ -544,6 +544,12 @@ const AiModal = ({
     {} as CreditScore
   );
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
+  const randomWords = [
+    "Sedang memperhitungkan data anda",
+    "Sedang melihat keluar jendela anda..",
+    "Apakah kalian sedang berbahagia hari ini?",
+    "Kalian Pasti ngantuk ya! ",
+  ];
   const getCreditScore = async () => {
     setIsLoadingData(true);
     try {
@@ -580,16 +586,40 @@ const AiModal = ({
                 disabled={isLoadingData}
                 isLoading={isLoadingData}
               >
-                Tanya AI
+                {isLoadingData &&
+                  randomWords[Math.floor(Math.random() * randomWords.length)]}
+                {!isLoadingData && <>Tanya AI</>}
               </EuiButton>
             </EuiText>
           </EuiModalBody>
           <EuiModalFooter>
-            <EuiFlexGroup justifyContent="center">
+            <EuiFlexGroup justifyContent="center" alignItems="center">
               <EuiFlexItem>
+                <EuiText>Hasil Perhitungan AI</EuiText>
                 <EuiTitle>
-                  <h1>
+                  <h1
+                    style={{
+                      color:
+                        creditScore.predictions &&
+                        creditScore.predictions[0] === "Low"
+                          ? "red"
+                          : creditScore.predictions &&
+                            creditScore.predictions[0] === "Medium"
+                          ? "yellow"
+                          : "green",
+                    }}
+                  >
                     {creditScore.predictions && creditScore.predictions[0]}
+                    {creditScore.predictions && creditScore.predictions[0] && (
+                      <EuiText>
+                        {creditScore.predictions[0] === "Low" &&
+                          "Kredit Skor kurang. Anda tidak disarankan untuk mengajukan pinjaman"}
+                        {creditScore.predictions[0] === "Medium" &&
+                          "Kredit Skor cukup. Anda disarankan untuk mengajukan pinjaman"}
+                        {creditScore.predictions[0] === "High" &&
+                          "Kredit Skor tinggi. Anda disarankan untuk mengajukan pinjaman"}
+                      </EuiText>
+                    )}
                   </h1>
                 </EuiTitle>
               </EuiFlexItem>
