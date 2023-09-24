@@ -1,11 +1,6 @@
-import {
-  EuiFlexGroup,
-  EuiLoadingSpinner,
-  EuiPageTemplate,
-  EuiText,
-} from "@elastic/eui";
+import { EuiLoadingSpinner, EuiPageTemplate, EuiText } from "@elastic/eui";
 import React from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default ({ children }: { children: React.ReactNode }) => {
   let navigate = useNavigate();

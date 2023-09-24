@@ -1,9 +1,4 @@
-import {
-  EuiFlexGroup,
-  EuiLoadingSpinner,
-  EuiPageTemplate,
-  EuiText,
-} from "@elastic/eui";
+import { EuiLoadingSpinner, EuiPageTemplate, EuiText } from "@elastic/eui";
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { User } from "../types/user";
