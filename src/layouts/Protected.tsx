@@ -6,8 +6,10 @@ export default ({ children }: { children: React.ReactNode }) => {
   let navigate = useNavigate();
   const [isLoggedIn, setLoggedIn] = React.useState<boolean | null>(null);
   React.useEffect(() => {
-    localStorage.getItem("user") ? setLoggedIn(true) : setLoggedIn(false);
-  }, [isLoggedIn]);
+    if (localStorage.getItem("user")) {
+      localStorage.getItem("user") ? setLoggedIn(true) : setLoggedIn(false);
+    }
+  }, []);
 
   switch (isLoggedIn) {
     case null:

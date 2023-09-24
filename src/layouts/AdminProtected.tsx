@@ -8,10 +8,14 @@ export default ({ children }: { children: React.ReactNode }) => {
   const { addToast } = useRootGlobalToast();
   const [isAdmin, setIsAdmin] = React.useState<boolean | null>(null);
   React.useEffect(() => {
-    (JSON.parse(localStorage.getItem("user")!) as User).is_admin === true
-      ? setIsAdmin(true)
-      : setIsAdmin(false);
-  }, [isAdmin]);
+    if (localStorage.getItem("user")) {
+      (JSON.parse(localStorage.getItem("user")!) as User).is_admin === true
+        ? setIsAdmin(true)
+        : setIsAdmin(false);
+    } else {
+      setIsAdmin(false);
+    }
+  }, []);
   const navigator = useNavigate();
   switch (isAdmin) {
     case null:

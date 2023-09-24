@@ -618,11 +618,11 @@ const AiModal = ({
                     {creditScore.predictions && creditScore.predictions[0] && (
                       <EuiText>
                         {creditScore.predictions[0] === "Low" &&
-                          "Kredit Skor kurang. Anda tidak disarankan untuk mengajukan pinjaman"}
+                          "Kredit Skor kurang. Anda tidak disarankan untuk memberikan pinjaman"}
                         {creditScore.predictions[0] === "Medium" &&
-                          "Kredit Skor cukup. Anda disarankan untuk mengajukan pinjaman"}
+                          "Kredit Skor cukup. Anda disarankan untuk memberikan pinjaman"}
                         {creditScore.predictions[0] === "High" &&
-                          "Kredit Skor tinggi. Anda disarankan untuk mengajukan pinjaman"}
+                          "Kredit Skor tinggi. Anda disarankan untuk memberikan pinjaman"}
                       </EuiText>
                     )}
                   </h1>
