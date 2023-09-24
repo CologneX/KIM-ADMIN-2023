@@ -11,6 +11,7 @@ import UsersManager from "./routes/UsersManager";
 import AdminProtected from "./layouts/AdminProtected";
 import Pesanan from "./routes/Pesanan";
 import Proposal from "./routes/lending/admin/Proposal";
+import UserProposal from "./routes/lending/user/UserProposal";
 
 export const App = () => {
   const cache = createCache({
@@ -65,6 +66,14 @@ export const App = () => {
               <AdminProtected>
                 <Proposal />
               </AdminProtected>
+            </>
+          ),
+        },
+        {
+          path: "/user/pinjaman/",
+          element: (
+            <>
+              <UserProposal />
             </>
           ),
         },

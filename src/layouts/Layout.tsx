@@ -92,67 +92,68 @@ const SideNav = (): React.ReactElement => {
             size="s"
           />
         </EuiCollapsibleNavGroup>
-        <EuiCollapsibleNavGroup
-          title="UMKM"
-          iconType="usersRolesApp"
-          isCollapsible={true}
-          initialIsOpen={false}
-        >
-          <EuiPinnableListGroup
-            aria-label="UMKM"
-            listItems={[
-              {
-                label: "Daftar UMKM",
-                onClick: () => navigate("/daftar-umkm"),
-                isActive: pathname.pathname === "/dafar-umkm",
-              },
-            ]}
-            onPinClick={() => {}}
-          />
-        </EuiCollapsibleNavGroup>
-        <EuiCollapsibleNavGroup
-          title="Produk Desa"
-          iconType="spacesApp"
-          isCollapsible={true}
-          initialIsOpen={false}
-        >
-          <EuiPinnableListGroup
-            aria-label="Produk Desa"
-            listItems={[
-              {
-                label: "Daftar Produk",
-                onClick: () => navigate("/produk"),
-                isActive: pathname.pathname === "/produk",
-              },
-            ]}
-            onPinClick={() => {}}
-          />
-        </EuiCollapsibleNavGroup>
-        <EuiCollapsibleNavGroup
-          title="Pesanan"
-          iconType="canvasApp"
-          isCollapsible={true}
-          initialIsOpen={true}
-        >
-          <EuiPinnableListGroup
-            aria-label="Pesanan-Orders"
-            listItems={[
-              {
-                label: "Pesanan",
-                onClick: () => navigate("/pesanan"),
-                isActive: pathname.pathname === "/pesanan",
-              },
-            ]}
-            onPinClick={() => {}}
-          />
-        </EuiCollapsibleNavGroup>
         {user.is_admin && (
           <>
+            <EuiCollapsibleNavGroup
+              title="UMKM"
+              iconType="usersRolesApp"
+              isCollapsible={true}
+              initialIsOpen={false}
+            >
+              <EuiPinnableListGroup
+                aria-label="UMKM"
+                listItems={[
+                  {
+                    label: "Daftar UMKM",
+                    onClick: () => navigate("/daftar-umkm"),
+                    isActive: pathname.pathname === "/dafar-umkm",
+                  },
+                ]}
+                onPinClick={() => {}}
+              />
+            </EuiCollapsibleNavGroup>
+            <EuiCollapsibleNavGroup
+              title="Produk Desa"
+              iconType="spacesApp"
+              isCollapsible={true}
+              initialIsOpen={false}
+            >
+              <EuiPinnableListGroup
+                aria-label="Produk Desa"
+                listItems={[
+                  {
+                    label: "Daftar Produk",
+                    onClick: () => navigate("/produk"),
+                    isActive: pathname.pathname === "/produk",
+                  },
+                ]}
+                onPinClick={() => {}}
+              />
+            </EuiCollapsibleNavGroup>
+            <EuiCollapsibleNavGroup
+              title="Pesanan"
+              iconType="canvasApp"
+              isCollapsible={true}
+              initialIsOpen={false}
+            >
+              <EuiPinnableListGroup
+                aria-label="Pesanan-Orders"
+                listItems={[
+                  {
+                    label: "Pesanan",
+                    onClick: () => navigate("/pesanan"),
+                    isActive: pathname.pathname === "/pesanan",
+                  },
+                ]}
+                onPinClick={() => {}}
+              />
+            </EuiCollapsibleNavGroup>
+
             <EuiCollapsibleNavGroup
               title="Pengguna"
               iconType="canvasApp"
               isCollapsible={true}
-              initialIsOpen={true}
+              initialIsOpen={false}
             >
               <EuiPinnableListGroup
                 aria-label="Pesanan-Orders"
@@ -170,7 +171,7 @@ const SideNav = (): React.ReactElement => {
               title="Admin"
               iconType="canvasApp"
               isCollapsible={true}
-              initialIsOpen={true}
+              initialIsOpen={false}
             >
               <EuiPinnableListGroup
                 aria-label="Pesanan-Orders"
@@ -184,9 +185,28 @@ const SideNav = (): React.ReactElement => {
                 onPinClick={() => {}}
               />
             </EuiCollapsibleNavGroup>
+            <EuiCollapsibleNavGroup
+              title="User"
+              iconType="canvasApp"
+              isCollapsible={true}
+              initialIsOpen={true}
+            >
+              <EuiPinnableListGroup
+                aria-label="Pesanan-Orders"
+                listItems={[
+                  {
+                    label: "Proposal Saya",
+                    onClick: () => navigate("/user/pinjaman"),
+                    isActive: pathname.pathname === "/user/pinjaman",
+                  },
+                ]}
+                onPinClick={() => {}}
+              />
+            </EuiCollapsibleNavGroup>
           </>
         )}
       </EuiFlexItem>
+
       <EuiFlexItem grow={false}>
         <span />
         <EuiCollapsibleNavGroup>

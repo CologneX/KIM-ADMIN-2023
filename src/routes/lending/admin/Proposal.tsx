@@ -21,6 +21,7 @@ import {
   EuiModalHeaderTitle,
   EuiText,
   EuiConfirmModal,
+  EuiTable,
 } from "@elastic/eui";
 import { useEffect, useRef, useState } from "react";
 import refreshToken from "../../../components/refreshToken";
@@ -28,6 +29,7 @@ import { CreditScore, Proposal } from "../../../types/proposal";
 import { useRootGlobalToast } from "../../../layouts/Layout";
 import CenterLoading from "../../../components/CenterLoading";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const handleGetProposal = async () => {
   const req = async () => {
@@ -389,6 +391,7 @@ const ProposalTable = ({
       color: "success",
       onClick: (e) => {
         setSelectedProposal(e);
+        setApproveProposalModalVisibility(true);
       },
       type: "icon",
     },
@@ -400,6 +403,7 @@ const ProposalTable = ({
       icon: "payment",
       onClick: (e) => {
         setSelectedProposal(e);
+        setPaymentProposalModalVisibility(true);
       },
       type: "icon",
     },
@@ -444,22 +448,11 @@ const ProposalTable = ({
     {
       field: "income",
       name: "Penghasilan",
+      sortable: true,
     },
     {
       field: "marital_status",
       name: "Status Pernikahan",
-    },
-    {
-      field: "last_education",
-      name: "Pendidikan Terakhir",
-    },
-    {
-      field: "number_of_children",
-      name: "Jumlah Anak",
-    },
-    {
-      field: "has_house",
-      name: "Status Rumah",
     },
     {
       field: "",
@@ -659,12 +652,12 @@ const ApproveProposalModal = ({
   const triggerApproveProposal = async () => {
     try {
       await handleApproveProposal(selectedProposal?.id!);
-      setRefreshData!(true);
       addToast({
         title: "Proposal berhasil disetujui",
         color: "success",
         iconType: "check",
       });
+      setRefreshData!(true);
     } catch (error) {
       addToast({
         title: "Gagal mengambil data proposal",
@@ -707,9 +700,14 @@ const PaymentProposalModal = ({
   setRefreshData?: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const { addToast } = useRootGlobalToast();
+  const navigate = useNavigate();
   const triggerPaymentProposal = async () => {
     try {
-      await handlePaymentProposal(selectedProposal?.id!);
+      const p = await handlePaymentProposal(selectedProposal?.id!);
+      if (p) {
+        // navigate to payment page p.redirect_url
+        navigate(p.redirect_url);
+      }
       setRefreshData!(true);
       addToast({
         title: "Proposal berhasil dibayar",
@@ -743,3 +741,21 @@ const PaymentProposalModal = ({
     </>
   );
 };
+
+// const UserProposalDetail = ({
+//   proposalData,
+//   searchProposal,
+// }: {
+//   proposalData: Proposal[];
+//   searchProposal: string;
+//   setRefreshData?: React.Dispatch<React.SetStateAction<boolean>>;
+// }) => {
+//   return (
+//     // display everything from proposalData here
+//     <>
+//       <EuiFlexGroup direction="column">
+
+//         </EuiFlexGroup>
+//     </>
+//   );
+// };

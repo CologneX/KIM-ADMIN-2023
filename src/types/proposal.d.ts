@@ -20,3 +20,20 @@ export type Proposal = {
 export type CreditScore = {
     predictions: string,
 }
+
+
+
+export type ProposalForm = {
+    amount: number,
+    interest_rate: number,
+    tenor: number,
+    age: number,
+    gender: boolean,
+    income: number,
+    last_education: number,
+    marital_status: boolean,
+    number_of_children: number,
+    has_house: boolean,
+    kk_url: string,
+    ktp_url: string
+}
