@@ -1,6 +1,7 @@
 export type User = {
     username: string | null;
     is_admin: boolean | null;
+    is_user: boolean | null;
 }
 
 export type Login = {

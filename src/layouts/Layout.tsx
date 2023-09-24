@@ -58,6 +58,25 @@ const SideNav = (): React.ReactElement => {
       onClick: () => navigate("/"),
     },
   ];
+
+  const handleLogout = async () => {
+    const req = async () => {
+      const res = await fetch("/api/v1/auth/logout", {
+        method: "POST",
+      });
+      return res;
+    };
+
+    try {
+      let res = await req();
+      if (!res.ok) {
+        return Promise.reject(await res.json());
+      }
+      localStorage.removeItem("user");
+    } catch (error) {
+      throw error;
+    }
+  };
   return (
     <EuiCollapsibleNav
       id="CollapsibleNavBarPrimary"
@@ -210,7 +229,14 @@ const SideNav = (): React.ReactElement => {
       <EuiFlexItem grow={false}>
         <span />
         <EuiCollapsibleNavGroup>
-          <EuiButtonEmpty color="danger" iconType="exit">
+          <EuiButtonEmpty
+            color="danger"
+            iconType="exit"
+            onClick={() => {
+              handleLogout();
+              navigate("/login");
+            }}
+          >
             Log Out
           </EuiButtonEmpty>
         </EuiCollapsibleNavGroup>
@@ -220,8 +246,13 @@ const SideNav = (): React.ReactElement => {
 };
 
 const UserMenu = () => {
-  const username = (JSON.parse(localStorage.getItem("user")!) as User)
-    .username as string;
+  const user = JSON.parse(localStorage.getItem("user")) as User;
+
+  // if (!user) {
+  //   return null;
+  // }
+
+  const { username, is_admin, is_user } = user;
   return (
     <EuiHeaderSectionItemButton
       aria-controls="headerUserMenu"

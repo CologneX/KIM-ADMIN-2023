@@ -12,6 +12,13 @@ import {
 import useToast from "../hooks/useToast";
 import { useEffect, useState } from "react";
 import refreshToken from "../components/refreshToken";
+import {
+  Chart,
+  Settings,
+  Partition,
+  Datum,
+  defaultPartitionValueFormatter,
+} from "@elastic/charts";
 const handleGetTotalUsers = async () => {
   const req = async () => {
     const res = await fetch("/api/v1/analytics/total-user");
@@ -134,32 +141,37 @@ export default () => {
     }
   }, []);
 
-  // let chart = (
-  //   <Chart size={{ height: 200 }}>
-  //     <Settings theme={euiChartTheme.theme} />
-  //     <Partition
-  //       data={[
-  //         {
-  //           category: "Name",
-  //           percent: 50,
-  //         },
-  //       ]}
-  //       valueAccessor={(d) => Number(d.percent)}
-  //       valueFormatter={() => ""} // Hide the slice value if data values are already in percentages
-  //       layers={[
-  //         {
-  //           groupByRollup: (d) => d.category,
-  //           shape: {
-  //             fillColor: (d) =>
-  //               euiChartTheme.theme.colors.vizColors[d.sortIndex],
+  // let chart = (_, { title, description }) => {
+  //   return (
+  //     <Chart title={title} description={description}>
+  //       <Settings debug={showDebug} baseTheme={useBaseTheme()} />
+  //       <Partition
+  //         id="spec_1"
+  //         data={mocks.pie}
+  //         valueAccessor={(d: Datum) => d.exportVal as number}
+  //         valueFormatter={(d: number) =>
+  //           `$${defaultPartitionValueFormatter(
+  //             Math.round(d / 1000000000)
+  //           )}\u00A0Bn`
+  //         }
+  //         layers={[
+  //           {
+  //             groupByRollup: (d: Datum) => d.sitc1,
+  //             nodeLabel: (d: Datum) => productLookup[d].name,
+  //             shape: {
+  //               fillColor: (key, sortIndex, node, tree) =>
+  //                 indexInterpolatedFillColor(interpolatorCET2s(0.8))(
+  //                   null,
+  //                   sortIndex,
+  //                   tree
+  //                 ),
+  //             },
   //           },
-  //         },
-  //       ]}
-  //       emptySizeRatio={0.4} // To create a donut chart
-  //       clockwiseSectors={false} // For correct slice order
-  //     />
-  //   </Chart>
-  // );
+  //         ]}
+  //       />
+  //     </Chart>
+  //   );
+  // };
   return (
     <>
       <EuiFlexGroup direction="column">

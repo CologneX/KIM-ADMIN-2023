@@ -570,7 +570,11 @@ const AiModal = ({
   return (
     <>
       {isAIModalVisible && (
-        <EuiModal onClose={() => setAiModalVisibility(false)}>
+        <EuiModal
+          onClose={() => {
+            setAiModalVisibility(false);
+          }}
+        >
           <EuiModalHeader>
             <EuiModalHeaderTitle size="m">Tanya AI</EuiModalHeaderTitle>
           </EuiModalHeader>

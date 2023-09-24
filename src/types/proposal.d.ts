@@ -34,6 +34,6 @@ export type ProposalForm = {
     marital_status: boolean,
     number_of_children: number,
     has_house: boolean,
-    kk_url: string,
-    ktp_url: string
+    kk_url: File | null,
+    ktp_url: File | null,
 }

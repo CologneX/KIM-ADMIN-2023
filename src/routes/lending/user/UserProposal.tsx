@@ -17,6 +17,7 @@ import {
   EuiFormRow,
   EuiFieldNumber,
   EuiSuperSelect,
+  EuiFilePicker,
 } from "@elastic/eui";
 import CenterLoading from "../../../components/CenterLoading";
 import { useEffect, useState } from "react";
@@ -50,10 +51,28 @@ const handleGetProposal = async () => {
 };
 
 const handleCreateLendingProposal = async (data: ProposalForm) => {
+  const formKK = new FormData();
+  formKK.append("file", data.kk_url);
+  const res = await fetch("/api/v1/lending/user/document", {
+    method: "POST",
+    body: formKK,
+  });
+  const linkKK = await res.json().then((res) => res.filename);
+  const formKTP = new FormData();
+  formKTP.append("file", data.ktp_url);
+  const res2 = await fetch("/api/v1/lending/user/document", {
+    method: "POST",
+    body: formKTP,
+  });
+  const linkKTP = await res2.json().then((res) => res.filename);
   const req = async () => {
     const res = await fetch("/api/v1/lending/user/proposal", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+        kk_url: linkKK,
+        ktp_url: linkKTP,
+      }),
     });
     return res;
   };
@@ -76,11 +95,11 @@ const handleCreateLendingProposal = async (data: ProposalForm) => {
   }
 };
 
-const handleUploadProposalDocuments = async (data: FormData) => {
+const handleUploadProposalDocuments = async ({ file }: { file: FormData }) => {
   const req = async () => {
     const res = await fetch("/api/v1/lending/user/document", {
       method: "POST",
-      body: data,
+      body: file,
     });
     return res;
   };
@@ -483,57 +502,57 @@ const ProposalFormCard = ({
                       { value: "1", inputDisplay: "Married" },
                     ]}
                     valueOfSelected={
-                      form.has_house === true
+                      form.marital_status === true
                         ? "1"
-                        : form.has_house === false
+                        : form.marital_status === false
                         ? "0"
                         : "1"
                     }
                     onChange={(value) => {
                       setForm({
                         ...form,
-                        has_house: value === "1" ? true : false,
+                        marital_status: value === "1" ? true : false,
                       });
                     }}
                   />
                 </EuiFormRow>
               </EuiFlexItem>
               <EuiFlexItem>
-                <EuiFormRow label="Kartu Keluarga" helpText="Dalam orang">
-                  <EuiFieldText
-                    value={form.kk_url}
-                    onChange={(e) => {
-                      setForm({ ...form, kk_url: e.target.value });
+                <EuiFormRow label="Kartu Keluarga">
+                  <EuiFilePicker
+                    initialPromptText="Pilih File"
+                    onChange={(files) => {
+                      setForm({ ...form, kk_url: files[0] });
                     }}
                   />
                 </EuiFormRow>
               </EuiFlexItem>
               <EuiFlexItem>
-                <EuiFormRow label="KTP" helpText="Dalam orang">
-                  <EuiFieldText
-                    value={form.ktp_url}
-                    onChange={(e) => {
-                      setForm({ ...form, ktp_url: e.target.value });
+                <EuiFormRow label="KTP">
+                  <EuiFilePicker
+                    initialPromptText="Pilih File"
+                    onChange={(files) => {
+                      setForm({ ...form, ktp_url: files[0] });
                     }}
                   />
                 </EuiFormRow>
-              </EuiFlexItem>
-              <EuiFlexItem>
-                <EuiButton
-                  fill
-                  onClick={async () => {
-                    try {
-                      await handleCreateLendingProposal(form);
-                      setIsProposalFormCardActive(false);
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  }}
-                >
-                  Ajukan Proposal
-                </EuiButton>
               </EuiFlexItem>
             </EuiFlexGrid>
+            <EuiSpacer />
+            <EuiButton
+              fill
+              fullWidth
+              onClick={async () => {
+                try {
+                  await handleCreateLendingProposal(form);
+                  setIsProposalFormCardActive(false);
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
+            >
+              Ajukan Proposal
+            </EuiButton>
           </EuiModalBody>
         </EuiModal>
       )}
